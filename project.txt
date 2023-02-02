@@ -1,3 +1,17 @@
+$ mkdir react-library-base
+$ cd react-library-base
+
+$ npm init -y
+$ lerna init
+
+$ vi lerna.json
+{
+  "$schema": "node_modules/lerna/schemas/lerna-schema.json",
+  "useWorkspaces": true,
+  "version": "0.0.0"
+}
+
+$ vi package.json
 {
   "name": "react-library-base",
   "version": "0.0.1",

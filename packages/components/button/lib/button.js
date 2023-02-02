@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = button;
+module.exports = {Button};
 
-function button() {
+function Button() {
     return "Hello from button";
 }

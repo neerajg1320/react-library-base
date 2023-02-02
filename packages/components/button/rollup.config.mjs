@@ -26,8 +26,8 @@ export default [
       },
       {
         file: 'dist/index.es.js',
-        format: 'es',
-        exports: 'default',
+        format: 'esm',
+        exports: 'name',
       }
     ],
     onwarn(warning, warn) {

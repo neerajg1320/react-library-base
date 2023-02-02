@@ -27,7 +27,7 @@ export default [
       {
         file: module,
         format: 'esm',
-
+        exports: 'named'
       }
     ],
     onwarn(warning, warn) {

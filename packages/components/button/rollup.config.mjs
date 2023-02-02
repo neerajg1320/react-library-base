@@ -22,12 +22,12 @@ export default [
       {
         file: 'dist/index.js',
         format: 'cjs',
-        exports: 'default'
+
       },
       {
         file: 'dist/index.esm.js',
         format: 'esm',
-        exports: 'name',
+
       }
     ],
     onwarn(warning, warn) {

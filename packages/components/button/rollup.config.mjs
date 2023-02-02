@@ -13,19 +13,19 @@ const packageJson = JSON.parse(
 );
 
 // console.log(`json:`, json);
-const {name, src} = packageJson;
+const {src, main, module} = packageJson;
 
 export default [
   {
     input: src,
     output: [
       {
-        file: 'dist/index.js',
+        file: main,
         format: 'cjs',
 
       },
       {
-        file: 'dist/index.esm.js',
+        file: module,
         format: 'esm',
 
       }
@@ -37,7 +37,8 @@ export default [
     plugins: [
       postcss({
         plugins:[],
-        minimize: true
+        minimize: true,
+        modules: true
       }),
       babel({
         presets: ['@babel/preset-env', '@babel/preset-react'],

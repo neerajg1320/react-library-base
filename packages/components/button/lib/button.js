@@ -1,7 +1,20 @@
-'use strict';
+import React from 'react';
+import cx from 'clsx';
+import styles from './styles.css';
 
-module.exports = {Button};
+const Button = ({ children, className, variant, ...rest }) => {
+  const classes = cx(
+      styles.Button,
+      {
+        [styles.ButtonSecondary]: variant === 'secondary',
+      },
+      className
+  );
+  return (
+      <button {...rest} className={classes}>
+        {children}
+      </button>
+  );
+};
 
-function Button() {
-    return "Hello from button";
-}
+export { Button };

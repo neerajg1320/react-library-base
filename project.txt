@@ -76,8 +76,6 @@ lerna add @babel/preset-env --dev --scope=@glassball/button
 # react
 lerna add react --dev --scope=@glassball/button
 lerna add react@18.x --peer--scope=@glassball/button
-
-#
 lerna add clsx --dev --scope=@glassball/button
 lerna add postcss --dev --scope=@glassball/button
 

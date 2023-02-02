@@ -1,7 +1,1 @@
-'use strict';
-
-module.exports = button;
-
-function button() {
-    return "Hello from button";
-}
+"use strict";var t=function(){return"Hello from button"};module.exports=t;

@@ -1,5 +1,1 @@
-module.exports = button;
-
-function button() {
-    return "Hello from button";
-}
+var t=function(){return"Hello from button"};export{t as default};

@@ -11,6 +11,7 @@ $ vi lerna.json
   "version": "0.0.0"
 }
 
+# Note that for packages we are looking in packages/components/* folder
 $ vi package.json
 {
   "name": "react-library-base",
@@ -30,3 +31,126 @@ $ vi package.json
     "lerna": "^6.4.1"
   }
 }
+
+$ mkdir packages/components
+$ lerna create @glassball/button --yes
+
+# The button.js file is
+$ package/components/button/lib/button.js
+'use strict';
+
+module.exports = button;
+
+function button() {
+    return "Hello from button";
+}
+
+
+$ lerna add rollup --dev --scope=@glassball/button
+
+$ button/package.json has script
+    "build": "rollup -c",
+
+$ lerna run build --scope=@glassball/button
+
+
+## Two step process
+# First install with rollup version 2.79.1
+# then upgrade to 3.
+# Migration Note:
+https://rollupjs.org/migration/
+
+# We support the builder differently
+lerna add rollup@2.79.1 --dev --scope=@glassball/button
+
+# plugins and loaders
+lerna add @rollup/plugin-babel --dev --scope=@glassball/button
+lerna add @rollup/plugin-node-resolve --dev --scope=@glassball/button
+lerna add @rollup/plugin-commonjs --dev --scope=@glassball/button
+lerna add rollup-plugin-peer-deps-external  --dev --scope=@glassball/button
+lerna add rollup-plugin-postcss --dev --scope=@glassball/button
+lerna add rollup-plugin-terser --dev --scope=@glassball/button
+lerna add @babel/preset-react --dev --scope=@glassball/button
+lerna add @babel/preset-env --dev --scope=@glassball/button
+
+# react
+lerna add react --dev --scope=@glassball/button
+lerna add react@18.x --peer--scope=@glassball/button
+
+#
+lerna add clsx --dev --scope=@glassball/button
+lerna add postcss --dev --scope=@glassball/button
+
+# package/components/button/lib/button.js
+import React from 'react';
+
+const Button = ({children}) => {
+    return (
+        <button>
+            {children}
+        </button>
+    );
+};
+
+export { Button };
+
+# We will now put the full rollup.config.js
+import {babel} from '@rollup/plugin-babel';
+import resolve from '@rollup/plugin-node-resolve';
+import external from 'rollup-plugin-peer-deps-external';
+import postcss from 'rollup-plugin-postcss';
+import commonjs from '@rollup/plugin-commonjs';
+import {terser} from "rollup-plugin-terser";
+
+export default [
+  {
+    input: './src/index.js',
+    output: [
+      {
+        file: 'dist/index.js',
+        format: 'cjs'
+      },
+      {
+        file: 'dist/index.es.js',
+        format: 'es',
+        exports: 'named',
+      }
+    ],
+    onwarn(warning, warn) {
+      if (warning.code === 'THIS_IS_UNDEFINED') return;
+      warn(warning);
+    },
+    plugins: [
+        postcss({
+          plugins:[],
+          minimize: true
+        }),
+        babel({
+          // exclude: 'node_modules/**',
+          exclude: /node_modules/,
+          presets: ['@babel/preset-env', '@babel/preset-react'],
+
+        }),
+        external(),
+        commonjs(),
+        resolve(),
+        terser()
+    ]
+  }
+]
+
+# In <project>/package.json add:
+  "scripts": {
+    "build": "lerna run build",
+
+  },
+
+$ lerna exec -- npm i && lerna link
+
+# Migration Note:
+https://rollupjs.org/migration/
+For larger configs, it can make sense to update to rollup@2.79.1 first,
+ add the strictDeprecations option to your config and resolve any errors that pop up.
+ That way you can make sure you do not rely on features that may have been removed in Rollup 3.
+
+## Setup with rollup 2.79.1

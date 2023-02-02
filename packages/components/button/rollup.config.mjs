@@ -25,7 +25,7 @@ export default [
         exports: 'default'
       },
       {
-        file: 'dist/index.es.js',
+        file: 'dist/index.esm.js',
         format: 'esm',
         exports: 'name',
       }

@@ -1,1 +1,1 @@
-"use strict";var t=function(){return"Hello from button"};module.exports=t;
+"use strict";var t={Button:function(){return"Hello from button"}};module.exports=t;

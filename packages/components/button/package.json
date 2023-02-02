@@ -6,6 +6,7 @@
   "author": "Neeraj Gupta <neerajgupta.mbox@gmail.com>",
   "license": "ISC",
   "main": "lib/button.js",
+  "src": "lib/button.js",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
@@ -18,6 +19,8 @@
   },
   "scripts": {
     "build": "rollup -c",
+    "clean": "rm -rf dist",
+    "purge": "rm -rf node_modules",
     "test": "node ./__tests__/@glassball/button.test.js"
   },
   "devDependencies": {

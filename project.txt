@@ -154,3 +154,5 @@ For larger configs, it can make sense to update to rollup@2.79.1 first,
  That way you can make sure you do not rely on features that may have been removed in Rollup 3.
 
 ## Setup with rollup 2.79.1
+
+And it is working !!
